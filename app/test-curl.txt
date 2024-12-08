@@ -1,0 +1,45 @@
+curl -X POST http://localhost:5001/charts/plot/accelerometer \
+-H "Content-Type: application/json" \
+-d '{"accelerometer_data": [[0.1, 0.2, 0.3, 0.374], [0.2, 0.3, 0.4, 0.538], [0.4, 0.5, 0.6, 0.877], [0.3, 0.2, 0.1, 0.374], [0.1, 0.0, -0.1, 0.141]]}' \
+--output accelerometer_chart.png
+
+curl -X POST http://localhost:5001/charts/plot/gyroscope \
+-H "Content-Type: application/json" \
+-d '{"gyroscope_data": [[0.1, 0.2, 0.3, 0.374], [0.2, 0.3, 0.4, 0.538], [0.4, 0.5, 0.6, 0.877], [0.3, 0.2, 0.1, 0.374], [0.1, 0.0, -0.1, 0.141]]}' \
+--output gyroscope_chart.png
+
+curl -X POST http://localhost:5001/charts/plot/speed \
+-H "Content-Type: application/json" \
+-d '{"speed_data": [0.1, 0.2, 0.3, 0.4, 0.5]}' \
+--output speed_chart.png
+
+curl -X POST http://localhost:5001/charts/plot/accelerometer \
+-H "Content-Type: application/json" \
+-d '{
+  "accelerometer_data": [
+    [0.1, 0.2, 0.3, 0.374],
+    [0.2, 0.3, 0.4, 0.538],
+    [0.4, 0.5, 0.6, 0.877],
+    [0.3, 0.2, 0.1, 0.374],
+    [0.1, 0.0, -0.1, 0.141]
+  ],
+  "crash_time": 1.2
+}' \
+--output accelerometer_chart.png
+
+// simulated crash conditions sample request
+curl -X POST http://10.0.0.12:5001/charts/plot/accelerometer \
+-H "Content-Type: application/json" \
+-d '{
+  "accelerometer_data": [
+    [0.1, 0.2, 0.3, 0.374],
+    [0.2, -1.5, 0.4, 1.536],
+    [0.4, -2.8, 0.6, 2.943],
+    [0.3, -1.2, 0.1, 1.421],
+    [0.1, 0.0, -0.1, 0.141]
+  ],
+  "crash_time": 0.2
+}' \
+--output accelerometer_chart.png
+
+curl -X POST -H "Content-Type: application/json" -d '{"accelerometer_data":[0.1,0.2,0.3],"crash_time":1.5}' http://10.0.0.12:5001/charts/plot/accelerometer

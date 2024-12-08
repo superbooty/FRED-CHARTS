@@ -1,0 +1,26 @@
+services:
+  flask_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flask_service
+    ports:
+      - "5001:5001"
+    networks:
+      - fred-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - flask_service
+    networks:
+      - fred-network
+
+networks:
+  fred-network:
+    external: true
